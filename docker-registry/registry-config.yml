@@ -16,3 +16,12 @@ health:
     enabled: true
     interval: 10s
     threshold: 3
+http:
+  addr: localhost:5000
+  net: tcp
+  debug:
+    addr: localhost:5001
+  headers:
+    X-Content-Type-Options: [nosniff]
+  http2:
+    disabled: false

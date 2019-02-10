@@ -14,7 +14,7 @@ services:
       - registry_network
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
 
 networks:
   registry_network:
