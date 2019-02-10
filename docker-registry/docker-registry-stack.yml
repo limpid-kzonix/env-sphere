@@ -1,0 +1,25 @@
+version: '3.2'
+
+services:
+  docker-registry-v2:
+    image: arm32v6/registry
+    ports:
+      - "5000:5000"
+    volumes:
+      - registry_data:/var/lib/registry
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - ./registry-config.yml:/etc/docker/registry/config.yml
+    networks:
+      - registry_network
+    deploy:
+      mode: replicated
+      replicas: 1
+
+networks:
+  registry_network:
+    driver: overlay
+    attachable: true
+
+volumes:
+  registry_data:

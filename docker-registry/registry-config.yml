@@ -1,0 +1,18 @@
+version: 0.1
+log:
+  accesslog:
+    disabled: true
+  level: debug
+  formatter: text
+  fields:
+    service: registry
+    environment: staging
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+    maxthreads: 100
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3
