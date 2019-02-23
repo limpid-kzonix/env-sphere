@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  whoami:
+    image: stefanscherer/whoami
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - whoami_data:/data
+    networks:
+      - whoami_network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints: [node.platform.os == linux]
+    ports:
+      - "9000:8080"
+    networks:
+      - whoami_network
+
+networks:
+  whoami_network:
+    driver: overlay
+    attachable: true
+
+volumes:
+  whoami_data:
