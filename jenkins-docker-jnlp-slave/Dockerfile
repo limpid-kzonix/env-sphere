@@ -21,7 +21,7 @@
 #  THE SOFTWARE.
 
 FROM limpidkzonix/jenkins-slave:arm-latest
-MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
+MAINTAINER Alexander Balyshyn <balyszyn@gmail.com>
 LABEL Description="This is a base image, which allows connecting Jenkins agents via JNLP protocols" Vendor="Jenkins project" Version="3.27"
 
 COPY jenkins-slave /usr/local/bin/jenkins-slave

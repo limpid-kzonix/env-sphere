@@ -21,7 +21,7 @@
 #  THE SOFTWARE.
 
 FROM arm64v8/openjdk:8u212-jdk
-MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
+MAINTAINER Alexander Balyshyn <balyszyn@gmail.com>
 
 ARG VERSION=3.29
 ARG user=jenkins

@@ -21,7 +21,7 @@
 #  THE SOFTWARE.
 
 FROM arm64v8/openjdk:8u212-jdk
-LABEL MAINTAINER="Nicolas De Loof <nicolas.deloof@gmail.com>"
+LABEL MAINTAINER="Alexander Balyshyn <balyszyn@gmail.com>"
 
 ARG user=jenkins
 ARG group=jenkins
