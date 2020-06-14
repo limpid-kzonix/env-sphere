@@ -1,0 +1,11 @@
+[tcp]
+  [tcp.routers]
+    [tcp.routers.Router-1]
+      # won't listen to entry point web
+      rule = "HostSNI(`recursive-escalator.io`)"
+      service = "streaming"
+
+  [tcp.services]
+    [tcp.services.streaming.loadBalancer]
+      [[tcp.services.streaming.loadBalancer.servers]]
+        address = "192.168.68.112:1936"

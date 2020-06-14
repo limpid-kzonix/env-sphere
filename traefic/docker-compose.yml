@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.2
+    ports:
+      # The HTTP port
+      - "80:80"
+      - "443:443"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+      - "9999:9999"
+      - "1935:1935"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - ./traefik.toml:/etc/traefik/traefik.toml
+      - ./traefik-file-config.toml:/etc/traefik/traefik-file-config.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik-public
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  traefik-public:
+    external: true
