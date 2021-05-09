@@ -4,7 +4,6 @@ networks:
   gitea:
     driver: overlay
     attachable: true
-    
 
 services:
   server:
@@ -38,10 +37,10 @@ services:
       mode: replicated
       replicas: 2
       placement:
-        constraints: 
+        constraints:
           - node.platform.os == linux
           - node.role == manager
-          
+
   db:
     image: mysql:8.0
     environment:
