@@ -20,7 +20,7 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
 
-FROM arm64v8/openjdk:18-jdk
+FROM arm64v8/openjdk:23-jdk
 MAINTAINER Alexander Balyshyn <balyszyn@gmail.com>
 
 ARG VERSION=3.29
