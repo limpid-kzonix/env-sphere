@@ -1,60 +1,38 @@
-FROM alpine:3.20.2 AS base
+FROM worxbend/base-dev-container:latest AS base
 
-ARG STACK_RESOLVER=lts
-
-ENV LANG=C.UTF-8
+ARG STACK_RESOLVER=lts-22.33 \ 
+    GHC_VERSION=9.6.6
 
 ENV USERNAME=vscode \
     USER_UID=1000 \
-    USER_GID=1000 
-
-RUN ulimit -n 8192
-
-RUN apk update && apk add --no-cache \
-    build-base \                
-    llvm \                     
-    clang \                     
-    lld \                       
-    git \                       
-    bash \
-    alpine-sdk \
-    curl \ 
-    binutils-gold \ 
-    curl \
-    gcc \
-    g++ \
-    gmp-dev \
-    libc-dev \
-    libffi-dev \
-    make \
-    musl-dev \
-    ncurses-dev \
-    perl \
-    tar \
-    xz \
-    zlib-dev \
-    zsh
-RUN addgroup -g $USER_GID $USERNAME
-
-RUN adduser -D -u $USER_UID -G $USERNAME -s /bin/bash $USERNAME
+    USER_GID=1000  \ 
+    GHC_VERSION=${GHC_VERSION} \
+    STACK_RESOLVER=${STACK_RESOLVER}
 
 USER ${USER_UID}:${USER_GID}
 
 WORKDIR /home/${USERNAME}
 
-ENV PATH="/home/${USERNAME}/.local/bin:/home/${USERNAME}/.cabal/bin:/home/${USERNAME}/.ghcup/bin:$PATH"
+ENV PATH="/home/${USERNAME}/.local/bin:/home/${USERNAME}/.ghcup/bin:$PATH:/home/${USERNAME}/.cabal/bin"
 
-RUN echo "export PATH=${PATH}" >> /home/${USERNAME}/.profile
+RUN echo "export PATH=${PATH}" >> /home/${USERNAME}/.profile && \
+    echo "source ~/.ghcup/env" >> /home/${USERNAME}/.bashrc && \
+    echo "source ~/.ghcup/env" >> /home/${USERNAME}/.profile
+
+SHELL ["/bin/zsh", "-c"]
 
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1 \
     BOOTSTRAP_HASKELL_MINIMAL=1
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+RUN mkdir -p /home/${USERNAME}/.stack/global-project && echo "resolver: ${STACK_RESOLVER}" > /home/${USERNAME}/.stack/global-project/stack.yaml
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh --unattended --yes
+
 RUN bash -c "source ~/.ghcup/env" && \
-    ghcup install ghc --set recommended && \
-    ghcup install cabal --set recommended && \
-    ghcup install stack --set recommended && \
-    ghcup install hls --set recommended
+    ghcup install ghc --set ${GHC_VERSION} && \
+    ghcup install cabal --set latest && \
+    ghcup install stack --set latest && \
+    ghcup install hls --set latest
 
 RUN ((stack ghc -- --version 2>/dev/null) || true) && \
     stack config --system-ghc set system-ghc true --global && \
@@ -66,14 +44,15 @@ RUN cabal update && cabal new-install cabal-install
 RUN cabal install --haddock-hoogle --minimize-conflict-set \
     stylish-haskell \
     haskell-dap \
-    ghci-dap \
     haskell-debug-adapter \
     hlint \
     hoogle \
-    retrie
-
+    ormolu
 
 RUN hoogle generate --download --haskell
 
+RUN mkdir -p /home/${USERNAME}/haskell-project
 
-ENTRYPOINT ["/bin/bash"]
+WORKDIR /home/${USERNAME}/haskell-project
+
+ENTRYPOINT ["/bin/zsh"]
