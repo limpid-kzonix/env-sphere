@@ -1,0 +1,41 @@
+{
+  "name": "DevContainer for Haskell (GHC, Stack, Cabal, LSP)",
+  "remoteUser": "vscode",
+  "runArgs": [],
+  "image": "worxbend/haskell-dev-container:latest",
+  "workspaceMount": "source=${localWorkspaceFolder}/,target=/home/vscode/haskell-project,type=bind,consistency=cached",
+  "workspaceFolder": "/home/vscode/haskell-project",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "haskell.haskell",
+        "phoityne.phoityne-vscode",
+        "jcanero.hoogle-vscode"
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/usr/bin/zsh",
+        "files.exclude": {
+          "**/*.olean": true,
+          "**/.DS_Store": true,
+          "**/.git": true,
+          "**/.hg": true,
+          "**/.svn": true,
+          "**/CVS": true
+        },
+        "haskell.checkProject": true,
+        "haskell.formattingProvider": "ormolu",
+        "haskell.indentationRules.enabled": true,
+        "haskell.liquidOn": false,
+        "haskell.checkParents": "CheckOnSave",
+        "haskell.manageHLS": "GHCup",
+        "haskell.maxCompletions": 40,
+        "haskell.openDocumentationInHackage": false,
+        "haskell.openSourceInHackage": false,
+        "haskell.trace.client": "error",
+        "haskell.trace.server": "off",
+        "haskell.upgradeGHCup": true,
+        "hoogle-vscode.useCabalDependencies": true
+      }
+    }
+  }
+}
