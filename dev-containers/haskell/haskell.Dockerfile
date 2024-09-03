@@ -1,11 +1,11 @@
 FROM worxbend/base-dev-container:latest AS base
 
-ARG STACK_RESOLVER=lts-22.33 \ 
+ARG STACK_RESOLVER=lts-22.33 \
     GHC_VERSION=9.6.6
 
 ENV USERNAME=vscode \
     USER_UID=1000 \
-    USER_GID=1000  \ 
+    USER_GID=1000  \
     GHC_VERSION=${GHC_VERSION} \
     STACK_RESOLVER=${STACK_RESOLVER}
 
