@@ -4,20 +4,20 @@ ENV LANG=C.UTF-8
 
 ENV USERNAME=vscode \
     USER_UID=1000 \
-    USER_GID=1000 
+    USER_GID=1000
 
 RUN ulimit -n 8192
 
 RUN apk update && apk add --no-cache \
-    build-base \                
-    llvm \                     
-    clang \                     
-    lld \                       
-    git \                       
+    build-base \
+    llvm \
+    clang \
+    lld \
+    git \
     bash \
     alpine-sdk \
-    curl \ 
-    binutils-gold \ 
+    curl \
+    binutils-gold \
     curl \
     gcc \
     g++ \
@@ -61,10 +61,3 @@ RUN git clone https://github.com/zsh-users/zsh-history-substring-search /home/${
 SHELL ["/bin/zsh", "-c"]
 
 ENTRYPOINT ["/bin/zsh"]
-
-
-
-
-
-
-
