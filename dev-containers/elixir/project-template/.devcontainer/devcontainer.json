@@ -1,0 +1,31 @@
+{
+  "name": "Elixir Dev Container",
+  "remoteUser": "vscode",
+  "runArgs": [],
+  "image": "worxbend/elixir-dev-container:latest",
+  "workspaceMount": "source=${localWorkspaceFolder}/,target=/home/vscode/elixir-project,type=bind,consistency=cached",
+  "workspaceFolder": "/home/vscode/elixir-project",
+  "customizations": {
+
+    
+    "vscode": {
+      "extensions": [
+        "editorconfig.editorconfig",
+        "github.vscode-pull-request-github",
+        "jakebecker.elixir-ls",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/usr/bin/zsh",
+        "files.exclude": {
+          "**/*.olean": true,
+          "**/.DS_Store": true,
+          "**/.git": true,
+          "**/.hg": true,
+          "**/.svn": true,
+          "**/CVS": true
+        }
+      }
+    }
+  }
+}
