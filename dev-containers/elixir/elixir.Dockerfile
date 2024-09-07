@@ -4,7 +4,7 @@ USER root
 
 FROM elixir AS erlang
 
-FROM alpine:3.20.2 AS base
+FROM alpine:3.20.3 AS base
 
 ENV LANG=C.UTF-8
 
