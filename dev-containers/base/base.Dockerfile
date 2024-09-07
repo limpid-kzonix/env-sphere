@@ -9,6 +9,11 @@ ENV USERNAME=vscode \
 RUN ulimit -n 8192
 
 RUN apk update && apk add --no-cache \
+    openssl3 openssl-dev \
+    unixodbc unixodbc-dev \
+    lksctp-tools \
+    lksctp-tools-dev \
+    ca-certificates \
     build-base \
     llvm \
     clang \
@@ -19,12 +24,15 @@ RUN apk update && apk add --no-cache \
     curl \
     binutils-gold \
     curl \
+    libgcc \
+    libstdc++ \
     gcc \
     g++ \
     gmp-dev \
     libc-dev \
     libffi-dev \
     make \
+    musl \
     musl-dev \
     ncurses \
     ncurses-dev \
@@ -34,9 +42,14 @@ RUN apk update && apk add --no-cache \
     perl \
     tar \
     xz \
+    zlib \
     zlib-dev \
     lazygit \
-    zsh
+    zsh \
+    dpkg-dev dpkg \
+    linux-headers \
+    autoconf \
+    tar
 
 RUN addgroup -g $USER_GID $USERNAME
 
