@@ -1,11 +1,5 @@
 FROM elixir:1.17-alpine
 
-USER root
-
-FROM elixir AS erlang
-
-FROM alpine:3.20.2 AS base
-
 ENV LANG=C.UTF-8
 
 ENV USERNAME=vscode \
@@ -61,7 +55,7 @@ RUN addgroup -g $USER_GID $USERNAME
 
 RUN adduser -D -u $USER_UID -G $USERNAME -s /bin/bash $USERNAME
 
-COPY .zshrc /home/${USERNAME}/.zshrc
+COPY ./../base/.zshrc /home/${USERNAME}/.zshrc
 RUN chown -R $USERNAME:$USERNAME /home/${USERNAME}/.zshrc
 
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" --unattended --yes
