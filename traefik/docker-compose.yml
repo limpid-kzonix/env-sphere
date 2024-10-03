@@ -3,7 +3,7 @@ version: '3.3'
 services:
   reverse-proxy:
     # The official v2 Traefik docker image
-    image: traefik:v3.1
+    image: traefik:v3.2
     ports:
       # The HTTP port
       - "80:80"
