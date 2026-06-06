@@ -1,4 +1,4 @@
-FROM elixir:1.17-alpine
+FROM elixir:1.20-alpine
 
 ENV LANG=C.UTF-8
 
